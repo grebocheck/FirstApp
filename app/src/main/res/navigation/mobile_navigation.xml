@@ -22,4 +22,9 @@
         android:name="com.example.firstapp.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="Вийти"
+        app:showAsAction="never" />
 </navigation>

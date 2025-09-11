@@ -67,4 +67,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     // SharedPreferences для зберігання токенів
     implementation("androidx.preference:preference-ktx:1.2.1")
+    // RecyclerView and SwipeRefreshLayout
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    // CardView for better item design
+    implementation("androidx.cardview:cardview:1.0.0")
 }
