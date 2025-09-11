@@ -50,7 +50,7 @@ class InverterAdapter(
                 if (inverter.batterySize != null && inverter.batterySize > 0) {
                     textViewBattery.text = "🔋 ${inverter.batterySize} кВт·г"
                 } else {
-                    textViewBattery.text = "🔋 Немає батареї"
+                    textViewBattery.text = "Немає батареї"
                 }
 
                 root.setOnClickListener {

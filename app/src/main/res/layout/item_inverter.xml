@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="Inverter Title"
-            android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/textView_power"
