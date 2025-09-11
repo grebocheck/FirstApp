@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.api.client.NetworkResult
 import com.example.firstapp.api.models.Inverter
 import com.example.firstapp.databinding.FragmentHomeBinding
@@ -44,6 +45,27 @@ class HomeFragment : Fragment() {
         binding.recyclerViewInverters.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = this@HomeFragment.adapter
+
+            // Add scroll listener for pagination
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    // Check if we're scrolling down
+                    if (dy > 0) {
+                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                        val visibleItemCount = layoutManager.childCount
+                        val totalItemCount = layoutManager.itemCount
+                        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                        // Load more when we're near the end of the list (last 5 items)
+                        if (viewModel.canLoadMore() &&
+                            (visibleItemCount + firstVisibleItemPosition) >= totalItemCount - 5) {
+                            viewModel.loadMoreInverters()
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -72,13 +94,28 @@ class HomeFragment : Fragment() {
                 }
                 is NetworkResult.Error -> {
                     showLoading(false)
-                    showError(result.message ?: "Невідома помилка")
+
+                    // If we already have data (from previous pages), just show a toast
+                    val currentList = adapter.currentList
+                    if (currentList.isNotEmpty()) {
+                        Toast.makeText(context, result.message ?: "Помилка завантаження", Toast.LENGTH_SHORT).show()
+                        showContent()
+                    } else {
+                        showError(result.message ?: "Невідома помилка")
+                    }
                 }
             }
         }
 
         viewModel.isRefreshing.observe(viewLifecycleOwner) { isRefreshing ->
             binding.swipeRefreshLayout.isRefreshing = isRefreshing
+        }
+
+        viewModel.isLoadingMore.observe(viewLifecycleOwner) { isLoadingMore ->
+            if (isLoadingMore) {
+                // Show a toast or small indicator that more data is loading
+                Toast.makeText(context, "Завантаження...", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

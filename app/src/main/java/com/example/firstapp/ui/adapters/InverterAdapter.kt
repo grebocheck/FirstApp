@@ -1,5 +1,3 @@
-// com/example/firstapp/ui/adapters/InverterAdapter.kt
-
 package com.example.firstapp.ui.adapters
 
 import android.view.LayoutInflater
@@ -9,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firstapp.api.models.Inverter
 import com.example.firstapp.databinding.ItemInverterBinding
+import java.text.DecimalFormat
 
 class InverterAdapter(
     private val onItemClick: (Inverter) -> Unit
@@ -31,42 +30,62 @@ class InverterAdapter(
         private val binding: ItemInverterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClick(getItem(position))
+                }
+            }
+        }
+
         fun bind(inverter: Inverter) {
             binding.apply {
                 textViewTitle.text = inverter.title
                 textViewAddress.text = inverter.address
-                textViewOwner.text = inverter.owner
-                textViewRegion.text = "${inverter.city}, ${inverter.region.title}"
+                textViewOwner.text = "👤 ${inverter.owner}"
 
-                // Показуємо потужність якщо є
-                val powerText = when {
-                    inverter.solarMaxPower != null -> "☀️ ${inverter.solarMaxPower} кВт"
-                    inverter.inverterMaxPower != null -> "⚡ ${inverter.inverterMaxPower} кВт"
-                    else -> "Потужність не вказана"
+                // Format region and city
+                val regionText = if (inverter.city != null) {
+                    "📍 ${inverter.city.title}, ${inverter.region.title}"
+                } else {
+                    "📍 ${inverter.region.title}"
+                }
+                textViewRegion.text = regionText
+
+                // Format power
+                val powerText = if (inverter.solarMaxPower != null) {
+                    "☀️ ${formatPower(inverter.solarMaxPower)} кВт"
+                } else if (inverter.inverterMaxPower != null) {
+                    "⚡ ${formatPower(inverter.inverterMaxPower)} кВт"
+                } else {
+                    "⚡ N/A"
                 }
                 textViewPower.text = powerText
 
-                // Показуємо батарею якщо є
-                if (inverter.batterySize != null && inverter.batterySize > 0) {
-                    textViewBattery.text = "🔋 ${inverter.batterySize} кВт·г"
+                // Format battery
+                val batteryText = if (inverter.batterySize != null) {
+                    "🔋 ${formatPower(inverter.batterySize)} кВт·г"
                 } else {
-                    textViewBattery.text = "Немає батареї"
+                    "🔋 N/A"
                 }
-
-                root.setOnClickListener {
-                    onItemClick(inverter)
-                }
+                textViewBattery.text = batteryText
             }
         }
+
+        private fun formatPower(power: Double): String {
+            val formatter = DecimalFormat("#.#")
+            return formatter.format(power)
+        }
+    }
+}
+
+class InverterDiffCallback : DiffUtil.ItemCallback<Inverter>() {
+    override fun areItemsTheSame(oldItem: Inverter, newItem: Inverter): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    class InverterDiffCallback : DiffUtil.ItemCallback<Inverter>() {
-        override fun areItemsTheSame(oldItem: Inverter, newItem: Inverter): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Inverter, newItem: Inverter): Boolean {
-            return oldItem == newItem
-        }
+    override fun areContentsTheSame(oldItem: Inverter, newItem: Inverter): Boolean {
+        return oldItem == newItem
     }
 }
