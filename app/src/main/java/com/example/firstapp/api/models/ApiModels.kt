@@ -57,6 +57,22 @@ data class EnergyData(
     val createdAt: String
 )
 
+data class LatestDataValue(
+    val value: Double?,
+    val timestamp: String?
+)
+
+data class LatestData(
+    @SerializedName("battery_level")
+    val batteryLevel: LatestDataValue?,
+    @SerializedName("power_solar")
+    val powerSolar: LatestDataValue?,
+    @SerializedName("power_consumption")
+    val powerConsumption: LatestDataValue?,
+    @SerializedName("today_generate")
+    val todayGenerate: LatestDataValue?
+)
+
 // Inverter Models
 data class Inverter(
     val id: Int,
@@ -74,13 +90,13 @@ data class Inverter(
     val latitude: Double,
     val longitude: Double,
     val region: Region,
-    val city: City,
+    val city: City?,
     @SerializedName("power_station")
-    val powerStation: String,
+    val powerStation: Double,
     @SerializedName("partner_logo")
     val partnerLogo: String?,
     @SerializedName("latest_data")
-    val latestData: String
+    val latestData: LatestData?
 )
 
 // Pagination Models

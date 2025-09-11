@@ -36,7 +36,7 @@ class InverterAdapter(
                 textViewTitle.text = inverter.title
                 textViewAddress.text = inverter.address
                 textViewOwner.text = inverter.owner
-                textViewRegion.text = "${inverter.city.title}, ${inverter.region.title}"
+                textViewRegion.text = "${inverter.city}, ${inverter.region.title}"
 
                 // Показуємо потужність якщо є
                 val powerText = when {
