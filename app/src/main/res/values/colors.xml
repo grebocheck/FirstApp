@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <!-- Switched to a green palette -->
+    <color name="purple_200">#FFA5D6A7</color> <!-- Green 200 -->
+    <color name="purple_500">#FF4CAF50</color> <!-- Green 500 (Primary) -->
+    <color name="purple_700">#FF388E3C</color> <!-- Green 700 (Primary Variant) -->
+    <color name="teal_200">#FF81C784</color>  <!-- Secondary (Greenish 300) -->
+    <color name="teal_700">#FF2E7D32</color>  <!-- Secondary Variant (Green 800) -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
