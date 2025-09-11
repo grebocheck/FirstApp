@@ -17,4 +17,14 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
     </group>
+
+    <!-- Розділ для дій -->
+    <item android:title="Дії">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@android:drawable/ic_menu_revert"
+                android:title="Вийти" />
+        </menu>
+    </item>
 </menu>
