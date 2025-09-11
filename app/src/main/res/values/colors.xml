@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Switched to a green palette -->
-    <color name="purple_200">#FFA5D6A7</color> <!-- Green 200 -->
-    <color name="purple_500">#FF4CAF50</color> <!-- Green 500 (Primary) -->
-    <color name="purple_700">#FF388E3C</color> <!-- Green 700 (Primary Variant) -->
-    <color name="teal_200">#FF81C784</color>  <!-- Secondary (Greenish 300) -->
-    <color name="teal_700">#FF2E7D32</color>  <!-- Secondary Variant (Green 800) -->
+    <!-- Green palette (renamed from purple/teal) -->
+    <color name="green_200">#FFA5D6A7</color>
+    <color name="green_300">#FF81C784</color>
+    <color name="green_500">#FF4CAF50</color>
+    <color name="green_700">#FF388E3C</color>
+    <color name="green_800">#FF2E7D32</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Drawer background dark gray -->
+    <color name="dark_gray">#212121</color>
 </resources>
